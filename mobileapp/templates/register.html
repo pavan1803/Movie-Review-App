@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+{% load crispy_forms_tags%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600;700&display=swap');
+
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+
+      body {
+        min-height: 100vh;
+        background:
+          radial-gradient(ellipse at 15% 25%, rgba(180,0,255,0.4) 0%, transparent 45%),
+          radial-gradient(ellipse at 85% 10%, rgba(255,0,100,0.35) 0%, transparent 45%),
+          radial-gradient(ellipse at 55% 85%, rgba(0,150,255,0.3) 0%, transparent 50%),
+          linear-gradient(135deg, #08000f 0%, #0b0018 50%, #000b18 100%);
+        font-family: 'Inter', sans-serif;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 3rem 1rem;
+      }
+
+      .container { width: 100%; max-width: 680px; }
+
+      .card {
+        background: rgba(255,255,255,0.05) !important;
+        border: 1px solid rgba(255,255,255,0.1) !important;
+        border-radius: 18px !important;
+        backdrop-filter: blur(14px);
+        box-shadow: 0 24px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(180,50,255,0.08);
+        padding: 2.5rem !important;
+      }
+
+      .card-body { background: transparent !important; }
+
+      h1 {
+        font-family: 'Bebas Neue', sans-serif !important;
+        font-size: 36px !important;
+        letter-spacing: 3px !important;
+        text-align: center;
+        background: linear-gradient(135deg, #ffffff 0%, rgba(180,100,255,0.95) 50%, #ff4db2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 2rem !important;
+      }
+
+      h1 + p { text-align: center; color: rgba(255,255,255,0.55); font-size: 15px; }
+      h1 + p a { color: #bf00ff; text-decoration: none; font-weight: 600; }
+      h1 + p a:hover { opacity: 0.75; }
+
+      label {
+        color: rgba(255,255,255,0.6) !important;
+        font-size: 12px !important;
+        font-weight: 600 !important;
+        letter-spacing: 1.5px !important;
+        text-transform: uppercase !important;
+        margin-bottom: 6px !important;
+        display: block;
+      }
+
+      input[type="text"], input[type="email"], input[type="password"],
+      input[type="number"], input[type="file"], select, textarea {
+        width: 100%;
+        background: rgba(255,255,255,0.06) !important;
+        border: 1px solid rgba(255,255,255,0.12) !important;
+        border-radius: 10px !important;
+        color: #fff !important;
+        font-family: 'Inter', sans-serif !important;
+        font-size: 14px !important;
+        padding: 11px 16px !important;
+        outline: none !important;
+        transition: border-color 0.25s, box-shadow 0.25s;
+        margin-bottom: 1.2rem;
+      }
+
+      input:focus, select:focus, textarea:focus {
+        border-color: rgba(180,50,255,0.7) !important;
+        box-shadow: 0 0 0 3px rgba(160,0,255,0.15) !important;
+      }
+
+      input::placeholder { color: rgba(255,255,255,0.25) !important; }
+      input[type="file"] { color: rgba(255,255,255,0.45) !important; cursor: pointer; }
+
+      small, .helptext, .form-text { color: rgba(255,255,255,0.3) !important; font-size: 11px !important; }
+      .errorlist, .invalid-feedback { color: #ff4db2 !important; font-size: 11px !important; }
+
+      .row { margin-bottom: 0.4rem; }
+
+      .btn-primary {
+        background: linear-gradient(135deg, #8b00ff, #ff0080) !important;
+        border: none !important;
+        color: #fff !important;
+        font-family: 'Inter', sans-serif !important;
+        font-size: 13px !important;
+        font-weight: 700 !important;
+        letter-spacing: 2px !important;
+        text-transform: uppercase !important;
+        padding: 12px 36px !important;
+        border-radius: 50px !important;
+        cursor: pointer;
+        display: block;
+        margin: 1.8rem auto 0 !important;
+        transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+      }
+
+      .btn-primary:hover {
+        opacity: 0.88 !important;
+        transform: translateY(-2px) !important;
+        box-shadow: 0 8px 28px rgba(180,0,255,0.45) !important;
+      }
+
+      .btn-primary:active { transform: scale(0.97) !important; }
+    </style>
+</head>
+    </style>
+</head>
+<body>
+      <br> <br>
+    <div class="container">
+        <div class="jumbotron">
+            <div class="card card-body">
+                {% if registered%}
+                <h1>Thank You for Registrtion</h1>
+                <p>Please Proceed to  <a href="{% url 'login' %}">login</a> </p>
+
+                {%else%}
+                <h1 style="text-align: center;">Registration Form</h1>
+                <form enctype="multipart/form-data" method="POST">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ form.username | as_crispy_field }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form.email | as_crispy_field }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ form.password | as_crispy_field }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form1.age | as_crispy_field }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        {{ form1.userpic | as_crispy_field }}
+                    </div>
+                     <input type="submit" value="REGISTER" class="btn btn-primary">
+{%endif%}
+                </form>
+            </div>
+        </div>
+    </div>
+
+    
+
+</body>
+</html>
